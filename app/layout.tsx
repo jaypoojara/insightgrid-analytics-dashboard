@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Sans } from "next/font/google";
+import { Sora, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AgentationProvider } from "@/components/AgentationProvider";
 
-const spaceGrotesk = Space_Grotesk({
+const sora = Sora({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Ship Studio",
-  description: "Build marketing sites with Claude Code. No coding required.",
+  title: "InsightGrid — Analytics Dashboard",
+  description: "Comprehensive analytics dashboard with real-time data visualization, KPI tracking, and interactive charts.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${sora.variable} ${plusJakartaSans.variable}`}>
       <body className="font-[family-name:var(--font-body)] antialiased">
         {children}
         <AgentationProvider />
