@@ -23,6 +23,7 @@
   --sidebar-bg: #141211;
   --input-bg: #292524;
   --ring: #FB923C;
+  --font-body: var(--font-geist-sans);
 }
 
 .light-mode {

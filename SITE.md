@@ -8,7 +8,7 @@
 - **Primary Colors**: Amber (#FB923C), Sky Blue (#38BDF8), Fresh Green (#4ADE80)
 - **Background (Dark)**: Warm charcoal (#1C1917) — earthy brown-tinted, not pure black
 - **Background (Light)**: Warm sand (#F5F0EB)
-- **Fonts**: Sora (headings) + Plus Jakarta Sans (body text)
+- **Fonts**: Instrument Sans (headings) + Geist Sans (body text)
 - **Style**: Glassmorphism header, rounded cards, gradient accents
 
 ## Pages
@@ -158,4 +158,5 @@ All pages are accessible via the sidebar navigation. Clicking a sidebar item swi
 
 - Feb 18, 2026: Initial build — Complete analytics dashboard with all components, dark/light mode, responsive layout, and real-time data simulation
 - Feb 18, 2026: Color scheme — Warm Charcoal theme. Dark mode uses warm brown-charcoal (#1C1917) with amber (#FB923C) primary, sky blue (#38BDF8) secondary. Light mode uses warm sand (#F5F0EB) with burnt orange (#EA580C) accents. Cozy, modern, earthy feel.
+- Feb 18, 2026: Switched fonts from Sora + Plus Jakarta Sans to Instrument Sans + Geist Sans for a sharper, more premium feel
 - Feb 18, 2026: Added interactive pages for all sidebar items — Analytics (traffic & user growth charts, top pages, device/geo breakdown), Customers (segment breakdown, searchable table with status filters), Products (performance chart, grid/list views, sort options), Orders (status pipeline, expandable cards with delivery timeline), Settings (profile, notifications, security, billing, appearance tabs). Sidebar now switches content on click. Header title updates dynamically.

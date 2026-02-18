@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Sora, Plus_Jakarta_Sans } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { AgentationProvider } from "@/components/AgentationProvider";
 
-const sora = Sora({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-display",
-  display: "swap",
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-body",
   display: "swap",
 });
 
@@ -26,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sora.variable} ${plusJakartaSans.variable}`}>
+    <html lang="en" className={`${instrumentSans.variable} ${GeistSans.variable}`}>
       <body className="font-[family-name:var(--font-body)] antialiased">
         {children}
         <AgentationProvider />
