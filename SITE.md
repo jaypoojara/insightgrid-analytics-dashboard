@@ -13,17 +13,25 @@
 
 ## Pages
 
-- **Dashboard** (`/`) — Main analytics dashboard with KPIs, charts, and data table
+All pages are accessible via the sidebar navigation. Clicking a sidebar item switches the content area.
+
+- **Dashboard** — Main overview with KPIs, charts, and transaction table
+- **Analytics** — Detailed traffic analytics with hourly traffic chart, user growth chart, top pages, device breakdown, and top countries
+- **Customers** — Customer management with segment breakdown, search/filter, status badges, and a full customer table
+- **Products** — Product catalog with performance chart, grid/list toggle, sorting by revenue/sold/rating, and stock status indicators
+- **Orders** — Order management with status pipeline, expandable order details, delivery timeline, and copy-to-clipboard
+- **Settings** — Account settings with tabs for Profile, Notifications, Security, Billing, and Appearance
 
 ## Components
 
 ### Sidebar (`components/dashboard/Sidebar.tsx`)
 - Collapsible navigation (260px expanded, 72px collapsed)
 - Navigation items: Dashboard, Analytics, Customers, Products, Orders, Settings
+- Clicking a sidebar item now switches the main content panel
 - Badge indicators for new items and counts
 - Tooltip labels when collapsed
 - User profile section at bottom
-- Mobile-responsive with overlay mode
+- Mobile-responsive with overlay mode (closes on navigation)
 
 ### KPI Cards (`components/dashboard/KPICard.tsx`)
 - 4 metric cards: Total Revenue, Active Users, Total Orders, Conversion Rate
@@ -74,8 +82,45 @@
 - Custom date range with start/end date inputs
 - Dropdown with checkmark on active selection
 
+### Analytics Content (`components/dashboard/AnalyticsContent.tsx`)
+- 4 KPI cards: Total Sessions, Avg. Session Duration, Bounce Rate, Pages per Session
+- Hourly traffic area chart (switchable to User Growth chart via tabs)
+- Top pages list with visual bar indicators and hover highlights
+- Device breakdown with progress bars (Desktop, Mobile, Tablet)
+- Top countries ranked list with session counts
+
+### Customers Content (`components/dashboard/CustomersContent.tsx`)
+- Summary cards: Total Customers, Active, Total Revenue, Avg. Spend
+- Customer segment breakdown (Enterprise, Business, Pro, Starter) with revenue
+- Search bar and status filter dropdown (All, Active, Inactive, Churned)
+- Customer table with avatar, plan badge, status indicator, spend, location
+- Click a row to highlight it, "Add Customer" button
+
+### Products Content (`components/dashboard/ProductsContent.tsx`)
+- Summary cards: Total Revenue, Units Sold, Low/Out of Stock count
+- Product performance stacked bar chart (Subscriptions, Add-ons, Services)
+- Toolbar: search, sort by revenue/sold/rating, grid/list view toggle
+- Grid view: product cards with status badge, star ratings, revenue
+- List view: sortable table with all product details
+
+### Orders Content (`components/dashboard/OrdersContent.tsx`)
+- Summary cards: Total Orders, Revenue, Avg. Order Value
+- Order pipeline: clickable status buttons (Processing, Shipped, Delivered, Cancelled, Returned)
+- Search + status filter
+- Expandable order cards with details: customer, payment, tracking, Copy ID button
+- Delivery timeline stepper for shipped/delivered orders
+
+### Settings Content (`components/dashboard/SettingsContent.tsx`)
+- Tab navigation: Profile, Notifications, Security, Billing, Appearance
+- **Profile**: Avatar, editable fields (name, email, phone, role), timezone/language preferences
+- **Notifications**: Toggle switches for 6 notification types
+- **Security**: Change password form, 2FA setup, active sessions management
+- **Billing**: Current plan display, payment method, invoice history
+- **Appearance**: Theme preview cards for dark/light mode
+
 ### Header (inline in `app/page.tsx`)
-- Live visitor count with animated pulse indicator
+- Dynamic title that updates based on active sidebar item
+- Live visitor count (shown only on Dashboard page)
 - Global search bar
 - Date range picker
 - Notification bell with dropdown (4 notifications, unread badges)
@@ -113,3 +158,4 @@
 
 - Feb 18, 2026: Initial build — Complete analytics dashboard with all components, dark/light mode, responsive layout, and real-time data simulation
 - Feb 18, 2026: Color scheme — Warm Charcoal theme. Dark mode uses warm brown-charcoal (#1C1917) with amber (#FB923C) primary, sky blue (#38BDF8) secondary. Light mode uses warm sand (#F5F0EB) with burnt orange (#EA580C) accents. Cozy, modern, earthy feel.
+- Feb 18, 2026: Added interactive pages for all sidebar items — Analytics (traffic & user growth charts, top pages, device/geo breakdown), Customers (segment breakdown, searchable table with status filters), Products (performance chart, grid/list views, sort options), Orders (status pipeline, expandable cards with delivery timeline), Settings (profile, notifications, security, billing, appearance tabs). Sidebar now switches content on click. Header title updates dynamically.

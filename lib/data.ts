@@ -140,3 +140,152 @@ export const transactionsData: Transaction[] = [
   { id: "TXN-024", customer: "Ryan Scott", email: "ryan@travel.io", amount: 520.0, status: "failed", date: "2024-12-03", product: "Enterprise", paymentMethod: "Credit Card" },
   { id: "TXN-025", customer: "Zoe Miller", email: "zoe@fashion.co", amount: 345.0, status: "completed", date: "2024-12-03", product: "Pro Plan", paymentMethod: "Debit Card" },
 ];
+
+// --- Analytics page data ---
+
+export const pageViewsData = [
+  { page: "/home", views: 24500, uniqueVisitors: 18200, avgTime: "2m 34s", bounceRate: 32 },
+  { page: "/products", views: 18300, uniqueVisitors: 14100, avgTime: "3m 12s", bounceRate: 24 },
+  { page: "/pricing", views: 12800, uniqueVisitors: 9600, avgTime: "4m 08s", bounceRate: 18 },
+  { page: "/blog", views: 9400, uniqueVisitors: 7800, avgTime: "5m 45s", bounceRate: 42 },
+  { page: "/about", views: 6200, uniqueVisitors: 5100, avgTime: "1m 52s", bounceRate: 55 },
+  { page: "/contact", views: 4100, uniqueVisitors: 3400, avgTime: "2m 20s", bounceRate: 38 },
+];
+
+export const sessionsByDevice = [
+  { name: "Desktop", value: 58, color: "var(--chart-1)" },
+  { name: "Mobile", value: 32, color: "var(--chart-2)" },
+  { name: "Tablet", value: 10, color: "var(--chart-3)" },
+];
+
+export const sessionsByCountry = [
+  { country: "United States", sessions: 8420, percentage: 38.2 },
+  { country: "United Kingdom", sessions: 3180, percentage: 14.4 },
+  { country: "Germany", sessions: 2640, percentage: 12.0 },
+  { country: "Canada", sessions: 2100, percentage: 9.5 },
+  { country: "France", sessions: 1850, percentage: 8.4 },
+  { country: "Australia", sessions: 1520, percentage: 6.9 },
+  { country: "Japan", sessions: 1280, percentage: 5.8 },
+  { country: "India", sessions: 1050, percentage: 4.8 },
+];
+
+export const hourlyTrafficData = [
+  { hour: "12am", visitors: 120 }, { hour: "2am", visitors: 80 }, { hour: "4am", visitors: 65 },
+  { hour: "6am", visitors: 180 }, { hour: "8am", visitors: 420 }, { hour: "10am", visitors: 680 },
+  { hour: "12pm", visitors: 750 }, { hour: "2pm", visitors: 820 }, { hour: "4pm", visitors: 780 },
+  { hour: "6pm", visitors: 640 }, { hour: "8pm", visitors: 520 }, { hour: "10pm", visitors: 280 },
+];
+
+// --- Customers page data ---
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  plan: "Starter" | "Pro" | "Business" | "Enterprise";
+  status: "active" | "inactive" | "churned";
+  spent: number;
+  orders: number;
+  joinDate: string;
+  lastActive: string;
+  location: string;
+}
+
+export const customersData: Customer[] = [
+  { id: "CUS-001", name: "Sarah Johnson", email: "sarah@example.com", avatar: "SJ", plan: "Pro", status: "active", spent: 2450, orders: 12, joinDate: "2024-03-15", lastActive: "2 hours ago", location: "New York, US" },
+  { id: "CUS-002", name: "Mike Chen", email: "mike@company.io", avatar: "MC", plan: "Business", status: "active", spent: 5680, orders: 28, joinDate: "2024-01-08", lastActive: "5 min ago", location: "San Francisco, US" },
+  { id: "CUS-003", name: "Emma Williams", email: "emma@startup.co", avatar: "EW", plan: "Enterprise", status: "active", spent: 12400, orders: 45, joinDate: "2023-11-22", lastActive: "1 hour ago", location: "London, UK" },
+  { id: "CUS-004", name: "James Brown", email: "james@tech.dev", avatar: "JB", plan: "Starter", status: "inactive", spent: 320, orders: 4, joinDate: "2024-08-10", lastActive: "2 weeks ago", location: "Berlin, DE" },
+  { id: "CUS-005", name: "Lisa Anderson", email: "lisa@design.co", avatar: "LA", plan: "Pro", status: "active", spent: 3890, orders: 19, joinDate: "2024-02-28", lastActive: "30 min ago", location: "Toronto, CA" },
+  { id: "CUS-006", name: "David Kim", email: "david@agency.com", avatar: "DK", plan: "Enterprise", status: "active", spent: 18200, orders: 62, joinDate: "2023-09-14", lastActive: "Just now", location: "Seoul, KR" },
+  { id: "CUS-007", name: "Sophie Martin", email: "sophie@brand.io", avatar: "SM", plan: "Business", status: "churned", spent: 1890, orders: 8, joinDate: "2024-04-05", lastActive: "1 month ago", location: "Paris, FR" },
+  { id: "CUS-008", name: "Alex Rivera", email: "alex@studio.co", avatar: "AR", plan: "Pro", status: "active", spent: 4200, orders: 22, joinDate: "2024-01-20", lastActive: "3 hours ago", location: "Miami, US" },
+  { id: "CUS-009", name: "Rachel Green", email: "rachel@media.com", avatar: "RG", plan: "Business", status: "active", spent: 6750, orders: 31, joinDate: "2023-12-03", lastActive: "15 min ago", location: "Sydney, AU" },
+  { id: "CUS-010", name: "Tom Wilson", email: "tom@retail.co", avatar: "TW", plan: "Enterprise", status: "active", spent: 22100, orders: 78, joinDate: "2023-08-17", lastActive: "45 min ago", location: "Chicago, US" },
+];
+
+export const customerSegments = [
+  { segment: "Enterprise", count: 24, revenue: 480000, color: "var(--chart-1)" },
+  { segment: "Business", count: 86, revenue: 320000, color: "var(--chart-2)" },
+  { segment: "Pro", count: 210, revenue: 185000, color: "var(--chart-3)" },
+  { segment: "Starter", count: 445, revenue: 62000, color: "var(--chart-4)" },
+];
+
+// --- Products page data ---
+
+export interface Product {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  sold: number;
+  revenue: number;
+  rating: number;
+  status: "in_stock" | "low_stock" | "out_of_stock";
+}
+
+export const productsData: Product[] = [
+  { id: "PRD-001", name: "Pro Plan — Annual", category: "Subscription", price: 245.50, stock: 999, sold: 1240, revenue: 304420, rating: 4.8, status: "in_stock" },
+  { id: "PRD-002", name: "Business Plan — Annual", category: "Subscription", price: 189.00, stock: 999, sold: 860, revenue: 162540, rating: 4.6, status: "in_stock" },
+  { id: "PRD-003", name: "Enterprise Suite", category: "Subscription", price: 999.00, stock: 999, sold: 320, revenue: 319680, rating: 4.9, status: "in_stock" },
+  { id: "PRD-004", name: "Starter Plan — Monthly", category: "Subscription", price: 9.99, stock: 999, sold: 4200, revenue: 41958, rating: 4.3, status: "in_stock" },
+  { id: "PRD-005", name: "Analytics Add-on", category: "Add-on", price: 49.00, stock: 999, sold: 680, revenue: 33320, rating: 4.5, status: "in_stock" },
+  { id: "PRD-006", name: "API Access Pack", category: "Add-on", price: 79.00, stock: 150, sold: 420, revenue: 33180, rating: 4.7, status: "low_stock" },
+  { id: "PRD-007", name: "Custom Dashboard", category: "Service", price: 2500.00, stock: 10, sold: 45, revenue: 112500, rating: 4.9, status: "low_stock" },
+  { id: "PRD-008", name: "Data Migration", category: "Service", price: 1200.00, stock: 0, sold: 28, revenue: 33600, rating: 4.4, status: "out_of_stock" },
+  { id: "PRD-009", name: "White-label License", category: "License", price: 4999.00, stock: 5, sold: 12, revenue: 59988, rating: 5.0, status: "low_stock" },
+  { id: "PRD-010", name: "Training Workshop", category: "Service", price: 350.00, stock: 20, sold: 95, revenue: 33250, rating: 4.6, status: "in_stock" },
+];
+
+export const productPerformance = [
+  { month: "Jan", subscriptions: 380, addons: 120, services: 18 },
+  { month: "Feb", subscriptions: 420, addons: 145, services: 22 },
+  { month: "Mar", subscriptions: 460, addons: 160, services: 15 },
+  { month: "Apr", subscriptions: 410, addons: 138, services: 25 },
+  { month: "May", subscriptions: 490, addons: 175, services: 20 },
+  { month: "Jun", subscriptions: 530, addons: 190, services: 28 },
+  { month: "Jul", subscriptions: 505, addons: 180, services: 32 },
+  { month: "Aug", subscriptions: 560, addons: 205, services: 24 },
+  { month: "Sep", subscriptions: 610, addons: 220, services: 30 },
+  { month: "Oct", subscriptions: 580, addons: 210, services: 26 },
+  { month: "Nov", subscriptions: 640, addons: 235, services: 35 },
+  { month: "Dec", subscriptions: 700, addons: 260, services: 38 },
+];
+
+// --- Orders page data ---
+
+export interface Order {
+  id: string;
+  customer: string;
+  items: number;
+  total: number;
+  status: "processing" | "shipped" | "delivered" | "cancelled" | "returned";
+  date: string;
+  paymentMethod: string;
+  trackingId: string | null;
+}
+
+export const ordersData: Order[] = [
+  { id: "ORD-2048", customer: "Sarah Johnson", items: 2, total: 491.00, status: "delivered", date: "2024-12-15", paymentMethod: "Credit Card", trackingId: "TRK-98234" },
+  { id: "ORD-2047", customer: "Mike Chen", items: 1, total: 189.00, status: "shipped", date: "2024-12-14", paymentMethod: "PayPal", trackingId: "TRK-98233" },
+  { id: "ORD-2046", customer: "Emma Williams", items: 3, total: 1568.00, status: "processing", date: "2024-12-14", paymentMethod: "Wire Transfer", trackingId: null },
+  { id: "ORD-2045", customer: "James Brown", items: 1, total: 9.99, status: "delivered", date: "2024-12-13", paymentMethod: "Credit Card", trackingId: "TRK-98230" },
+  { id: "ORD-2044", customer: "Lisa Anderson", items: 2, total: 294.50, status: "cancelled", date: "2024-12-13", paymentMethod: "Debit Card", trackingId: null },
+  { id: "ORD-2043", customer: "David Kim", items: 4, total: 3827.00, status: "delivered", date: "2024-12-12", paymentMethod: "Credit Card", trackingId: "TRK-98228" },
+  { id: "ORD-2042", customer: "Sophie Martin", items: 1, total: 189.00, status: "returned", date: "2024-12-12", paymentMethod: "PayPal", trackingId: "TRK-98227" },
+  { id: "ORD-2041", customer: "Alex Rivera", items: 2, total: 328.00, status: "delivered", date: "2024-12-11", paymentMethod: "Credit Card", trackingId: "TRK-98225" },
+  { id: "ORD-2040", customer: "Rachel Green", items: 1, total: 245.50, status: "shipped", date: "2024-12-11", paymentMethod: "Credit Card", trackingId: "TRK-98224" },
+  { id: "ORD-2039", customer: "Tom Wilson", items: 5, total: 6245.00, status: "processing", date: "2024-12-10", paymentMethod: "Wire Transfer", trackingId: null },
+  { id: "ORD-2038", customer: "Nina Patel", items: 1, total: 189.00, status: "delivered", date: "2024-12-10", paymentMethod: "Credit Card", trackingId: "TRK-98222" },
+  { id: "ORD-2037", customer: "Chris Taylor", items: 2, total: 394.50, status: "delivered", date: "2024-12-09", paymentMethod: "PayPal", trackingId: "TRK-98220" },
+];
+
+export const orderStatusSummary = [
+  { status: "Processing", count: 12, color: "var(--chart-2)" },
+  { status: "Shipped", count: 8, color: "var(--chart-1)" },
+  { status: "Delivered", count: 156, color: "var(--chart-3)" },
+  { status: "Cancelled", count: 5, color: "var(--chart-4)" },
+  { status: "Returned", count: 3, color: "var(--chart-5)" },
+];

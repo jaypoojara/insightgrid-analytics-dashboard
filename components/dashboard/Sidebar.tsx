@@ -22,6 +22,8 @@ interface SidebarProps {
   mobileOpen: boolean;
   onToggle: () => void;
   onMobileClose: () => void;
+  activeItem: string;
+  onItemChange: (id: string) => void;
 }
 
 const navItems = [
@@ -38,8 +40,9 @@ export default function Sidebar({
   mobileOpen,
   onToggle,
   onMobileClose,
+  activeItem,
+  onItemChange,
 }: SidebarProps) {
-  const [activeItem, setActiveItem] = useState("dashboard");
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
@@ -93,7 +96,7 @@ export default function Sidebar({
               return (
                 <button
                   key={item.id}
-                  onClick={() => setActiveItem(item.id)}
+                  onClick={() => onItemChange(item.id)}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   className={cn(

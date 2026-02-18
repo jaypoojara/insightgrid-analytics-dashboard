@@ -19,6 +19,11 @@ import DonutChartWidget from "@/components/dashboard/DonutChartWidget";
 import FunnelWidget from "@/components/dashboard/FunnelWidget";
 import DataTable from "@/components/dashboard/DataTable";
 import DateRangePicker from "@/components/dashboard/DateRangePicker";
+import AnalyticsContent from "@/components/dashboard/AnalyticsContent";
+import CustomersContent from "@/components/dashboard/CustomersContent";
+import ProductsContent from "@/components/dashboard/ProductsContent";
+import OrdersContent from "@/components/dashboard/OrdersContent";
+import SettingsContent from "@/components/dashboard/SettingsContent";
 import {
   kpiMetrics,
   revenueData,
@@ -30,9 +35,19 @@ import {
 import type { KPIMetric } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+const pageTitles: Record<string, string> = {
+  dashboard: "Dashboard",
+  analytics: "Analytics",
+  customers: "Customers",
+  products: "Products",
+  orders: "Orders",
+  settings: "Settings",
+};
+
 export default function Dashboard() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState("dashboard");
   const [dateRange, setDateRange] = useState("30d");
   const [darkMode, setDarkMode] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -84,6 +99,11 @@ export default function Dashboard() {
     setTimeout(() => setIsRefreshing(false), 1500);
   }, []);
 
+  const handleItemChange = useCallback((id: string) => {
+    setActiveItem(id);
+    setMobileMenuOpen(false);
+  }, []);
+
   const notifications = [
     {
       id: 1,
@@ -125,6 +145,8 @@ export default function Dashboard() {
         mobileOpen={mobileMenuOpen}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
         onMobileClose={() => setMobileMenuOpen(false)}
+        activeItem={activeItem}
+        onItemChange={handleItemChange}
       />
 
       {/* Main content area */}
@@ -147,17 +169,19 @@ export default function Dashboard() {
 
             <div className="hidden items-center gap-3 sm:flex">
               <h1 className="font-[family-name:var(--font-display)] text-lg font-semibold text-[var(--foreground)]">
-                Dashboard
+                {pageTitles[activeItem] || "Dashboard"}
               </h1>
-              <div className="flex items-center gap-2 rounded-full bg-[var(--success)]/10 px-3 py-1">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-[var(--success)] opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
-                </span>
-                <span className="text-xs font-medium text-[var(--success)]">
-                  {liveVisitors.toLocaleString()} live
-                </span>
-              </div>
+              {activeItem === "dashboard" && (
+                <div className="flex items-center gap-2 rounded-full bg-[var(--success)]/10 px-3 py-1">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-[var(--success)] opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
+                  </span>
+                  <span className="text-xs font-medium text-[var(--success)]">
+                    {liveVisitors.toLocaleString()} live
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -314,51 +338,69 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Dashboard content */}
+        {/* Page content */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6">
-          <div className="mx-auto max-w-[1600px] space-y-6">
-            {/* Page heading - mobile */}
-            <div className="sm:hidden">
-              <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-[var(--foreground)]">
-                Dashboard
-              </h1>
-              <div className="mt-1 flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-[var(--success)] opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
-                </span>
-                <span className="text-xs text-[var(--success)]">
-                  {liveVisitors.toLocaleString()} live visitors
-                </span>
+          {/* Dashboard */}
+          {activeItem === "dashboard" && (
+            <div className="mx-auto max-w-[1600px] space-y-6">
+              {/* Page heading - mobile */}
+              <div className="sm:hidden">
+                <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-[var(--foreground)]">
+                  Dashboard
+                </h1>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-[var(--success)] opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
+                  </span>
+                  <span className="text-xs text-[var(--success)]">
+                    {liveVisitors.toLocaleString()} live visitors
+                  </span>
+                </div>
               </div>
-            </div>
 
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {liveKPIs.map((kpi) => (
-                <KPICard key={kpi.id} {...kpi} />
-              ))}
-            </div>
-
-            {/* Charts Row 1: Area + Donut */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <div className="lg:col-span-2">
-                <AreaChartWidget data={revenueData} />
+              {/* KPI Cards */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                {liveKPIs.map((kpi) => (
+                  <KPICard key={kpi.id} {...kpi} />
+                ))}
               </div>
-              <div>
-                <DonutChartWidget data={trafficSources} />
+
+              {/* Charts Row 1: Area + Donut */}
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                <div className="lg:col-span-2">
+                  <AreaChartWidget data={revenueData} />
+                </div>
+                <div>
+                  <DonutChartWidget data={trafficSources} />
+                </div>
               </div>
-            </div>
 
-            {/* Charts Row 2: Bar + Funnel */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <BarChartWidget data={salesByCategory} />
-              <FunnelWidget data={funnelData} />
-            </div>
+              {/* Charts Row 2: Bar + Funnel */}
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                <BarChartWidget data={salesByCategory} />
+                <FunnelWidget data={funnelData} />
+              </div>
 
-            {/* Data Table */}
-            <DataTable data={transactionsData} />
-          </div>
+              {/* Data Table */}
+              <DataTable data={transactionsData} />
+            </div>
+          )}
+
+          {/* Analytics */}
+          {activeItem === "analytics" && <AnalyticsContent />}
+
+          {/* Customers */}
+          {activeItem === "customers" && <CustomersContent />}
+
+          {/* Products */}
+          {activeItem === "products" && <ProductsContent />}
+
+          {/* Orders */}
+          {activeItem === "orders" && <OrdersContent />}
+
+          {/* Settings */}
+          {activeItem === "settings" && <SettingsContent />}
         </main>
       </div>
     </div>
