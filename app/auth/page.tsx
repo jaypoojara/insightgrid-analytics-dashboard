@@ -12,6 +12,7 @@ import {
   Loader2,
   AlertCircle,
   CheckCircle2,
+  User,
 } from "lucide-react";
 import { getMemberstack } from "@/lib/memberstack";
 import { useMemberstack } from "@/components/MemberstackProvider";
@@ -24,6 +25,8 @@ export default function AuthPage() {
   const [mode, setMode] = useState<AuthMode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -87,6 +90,10 @@ export default function AuthPage() {
         await ms.signupMemberEmailPassword({
           email,
           password,
+          customFields: {
+            "first-name": firstName,
+            "last-name": lastName,
+          },
         });
         await refresh();
         router.replace("/");
@@ -112,6 +119,8 @@ export default function AuthPage() {
     setMode(newMode);
     clearMessages();
     setPassword("");
+    setFirstName("");
+    setLastName("");
   };
 
   return (
@@ -200,6 +209,50 @@ export default function AuthPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* First & Last Name (signup only) */}
+            {mode === "signup" && (
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[var(--foreground)]">
+                    First Name
+                  </label>
+                  <div className="relative">
+                    <User
+                      size={16}
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--muted)]"
+                    />
+                    <input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="First name"
+                      required
+                      className="w-full rounded-xl border border-[var(--border-color)] bg-[var(--input-bg)] py-3 pl-10 pr-4 text-sm text-[var(--foreground)] outline-none transition-all placeholder:text-[var(--muted)] focus:border-[var(--primary)]/50 focus:ring-2 focus:ring-[var(--primary)]/20"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[var(--foreground)]">
+                    Last Name
+                  </label>
+                  <div className="relative">
+                    <User
+                      size={16}
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--muted)]"
+                    />
+                    <input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Last name"
+                      required
+                      className="w-full rounded-xl border border-[var(--border-color)] bg-[var(--input-bg)] py-3 pl-10 pr-4 text-sm text-[var(--foreground)] outline-none transition-all placeholder:text-[var(--muted)] focus:border-[var(--primary)]/50 focus:ring-2 focus:ring-[var(--primary)]/20"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Email */}
             <div>
               <label className="mb-1.5 block text-sm font-medium text-[var(--foreground)]">

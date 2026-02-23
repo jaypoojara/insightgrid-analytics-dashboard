@@ -174,6 +174,8 @@ export default function Dashboard() {
         onMobileClose={() => setMobileMenuOpen(false)}
         activeItem={activeItem}
         onItemChange={handleItemChange}
+        member={member}
+        logout={logout}
       />
 
       {/* Main content area */}
@@ -381,9 +383,9 @@ export default function Dashboard() {
                         </div>
                         <div className="min-w-0">
                           <p className="truncate text-xs font-medium text-[var(--foreground)]">
-                            {member?.auth?.email ?? "User"}
+                            {[member?.customFields?.["first-name"], member?.customFields?.["last-name"]].filter(Boolean).join(" ") || member?.auth?.email || "User"}
                           </p>
-                          <p className="text-[10px] text-[var(--muted)]">Signed in</p>
+                          <p className="truncate text-[10px] text-[var(--muted)]">{member?.auth?.email}</p>
                         </div>
                       </div>
                     </div>

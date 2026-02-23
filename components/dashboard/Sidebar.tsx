@@ -24,6 +24,24 @@ interface SidebarProps {
   onMobileClose: () => void;
   activeItem: string;
   onItemChange: (id: string) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  member: Record<string, any> | null;
+  logout: () => void;
+}
+
+function getDisplayName(member: Record<string, any> | null): string {
+  const first = member?.customFields?.["first-name"];
+  const last = member?.customFields?.["last-name"];
+  if (first || last) return [first, last].filter(Boolean).join(" ");
+  const email: string = member?.auth?.email ?? "";
+  const local = email.split("@")[0];
+  return local.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function getInitials(name: string): string {
+  const parts = name.trim().split(" ");
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
 }
 
 const navItems = [
@@ -42,7 +60,12 @@ export default function Sidebar({
   onMobileClose,
   activeItem,
   onItemChange,
+  member,
+  logout,
 }: SidebarProps) {
+  const displayName = getDisplayName(member);
+  const initials = getInitials(displayName);
+  const email = member?.auth?.email ?? "";
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
@@ -164,17 +187,18 @@ export default function Sidebar({
               "flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-[var(--surface)] cursor-pointer",
               collapsed && "justify-center"
             )}
+            onClick={!collapsed ? undefined : undefined}
           >
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--chart-3)] to-[var(--chart-2)] text-sm font-semibold text-white">
-              JD
+              {initials}
             </div>
             {!collapsed && (
               <div className="flex-1 min-w-0">
                 <p className="truncate text-sm font-medium text-[var(--foreground)]">
-                  John Doe
+                  {displayName}
                 </p>
                 <p className="truncate text-xs text-[var(--muted)]">
-                  john@company.com
+                  {email}
                 </p>
               </div>
             )}
@@ -182,6 +206,7 @@ export default function Sidebar({
               <LogOut
                 size={16}
                 className="shrink-0 text-[var(--muted)] hover:text-[var(--danger)] transition-colors"
+                onClick={(e) => { e.stopPropagation(); logout(); }}
               />
             )}
           </div>
