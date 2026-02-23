@@ -15,6 +15,7 @@
 
 All pages are accessible via the sidebar navigation. Clicking a sidebar item switches the content area.
 
+- **Auth** (`/auth`) — Login, signup, and forgot password page powered by Memberstack
 - **Dashboard** — Main overview with KPIs, charts, and transaction table
 - **Analytics** — Detailed traffic analytics with hourly traffic chart, user growth chart, top pages, device breakdown, and top countries
 - **Customers** — Customer management with segment breakdown, search/filter, status badges, and a full customer table
@@ -143,6 +144,7 @@ All pages are accessible via the sidebar navigation. Clicking a sidebar item swi
 - Tailwind CSS v4
 - Recharts (charts)
 - Lucide React (icons)
+- Memberstack (`@memberstack/dom`) — authentication & membership
 - Sora + Plus Jakarta Sans (Google Fonts)
 
 ## How to Customize
@@ -160,3 +162,5 @@ All pages are accessible via the sidebar navigation. Clicking a sidebar item swi
 - Feb 18, 2026: Color scheme — Warm Charcoal theme. Dark mode uses warm brown-charcoal (#1C1917) with amber (#FB923C) primary, sky blue (#38BDF8) secondary. Light mode uses warm sand (#F5F0EB) with burnt orange (#EA580C) accents. Cozy, modern, earthy feel.
 - Feb 18, 2026: Switched fonts from Sora + Plus Jakarta Sans to Instrument Sans + Geist Sans for a sharper, more premium feel
 - Feb 18, 2026: Added interactive pages for all sidebar items — Analytics (traffic & user growth charts, top pages, device/geo breakdown), Customers (segment breakdown, searchable table with status filters), Products (performance chart, grid/list views, sort options), Orders (status pipeline, expandable cards with delivery timeline), Settings (profile, notifications, security, billing, appearance tabs). Sidebar now switches content on click. Header title updates dynamically.
+- Feb 23, 2026: Added Memberstack authentication — Auth page (`/auth`) with sign in, sign up, and forgot password. Uses `@memberstack/dom` package directly (the recommended approach). MemberstackProvider wraps the app for auth state. Requires `NEXT_PUBLIC_MEMBERSTACK_APP_ID` in `.env.local`.
+- Feb 23, 2026: Protected dashboard — Users must log in to access the dashboard. Unauthenticated visitors are redirected to `/auth`. User avatar shows the logged-in member's email initial and clicking it signs out.

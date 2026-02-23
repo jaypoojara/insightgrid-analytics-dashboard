@@ -3,6 +3,7 @@ import { Instrument_Sans } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { AgentationProvider } from "@/components/AgentationProvider";
+import { MemberstackProvider } from "@/components/MemberstackProvider";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrumentSans.variable} ${GeistSans.variable}`}>
       <body className="font-[family-name:var(--font-body)] antialiased">
-        {children}
+        <MemberstackProvider>
+          {children}
+        </MemberstackProvider>
         <AgentationProvider />
       </body>
     </html>

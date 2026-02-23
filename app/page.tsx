@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import {
   Search,
   Bell,
@@ -10,7 +11,11 @@ import {
   X,
   Activity,
   RefreshCw,
+  Loader2,
+  LogOut,
+  User,
 } from "lucide-react";
+import { useMemberstack } from "@/components/MemberstackProvider";
 import Sidebar from "@/components/dashboard/Sidebar";
 import KPICard from "@/components/dashboard/KPICard";
 import AreaChartWidget from "@/components/dashboard/AreaChartWidget";
@@ -45,6 +50,8 @@ const pageTitles: Record<string, string> = {
 };
 
 export default function Dashboard() {
+  const router = useRouter();
+  const { isAuthenticated, isLoading, member, logout } = useMemberstack();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("dashboard");
@@ -53,6 +60,7 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [liveVisitors, setLiveVisitors] = useState(847);
   const [liveKPIs, setLiveKPIs] = useState<KPIMetric[]>(kpiMetrics);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -136,6 +144,25 @@ export default function Dashboard() {
   ];
 
   const unreadCount = notifications.filter((n) => n.unread).length;
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.replace("/auth");
+    }
+  }, [isLoading, isAuthenticated, router]);
+
+  // Show loading screen while checking auth
+  if (isLoading || !isAuthenticated) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-[var(--background)]">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 size={32} className="animate-spin text-[var(--primary)]" />
+          <p className="text-sm text-[var(--muted)]">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-[var(--background)]">
@@ -331,10 +358,48 @@ export default function Dashboard() {
               {darkMode ? <Sun size={17} /> : <Moon size={17} />}
             </button>
 
-            {/* User avatar */}
-            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-[var(--primary)]/20">
-              JD
-            </button>
+            {/* User menu */}
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-[var(--primary)]/20"
+              >
+                {member?.auth?.email ? member.auth.email.charAt(0).toUpperCase() : "U"}
+              </button>
+
+              {userMenuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setUserMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--surface)] shadow-xl shadow-black/20">
+                    <div className="border-b border-[var(--border-color)] px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] text-xs font-bold text-white">
+                          {member?.auth?.email ? member.auth.email.charAt(0).toUpperCase() : "U"}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="truncate text-xs font-medium text-[var(--foreground)]">
+                            {member?.auth?.email ?? "User"}
+                          </p>
+                          <p className="text-[10px] text-[var(--muted)]">Signed in</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-1.5">
+                      <button
+                        onClick={() => { setUserMenuOpen(false); logout(); }}
+                        className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm text-[var(--danger)] transition-all hover:bg-[var(--danger)]/10"
+                      >
+                        <LogOut size={15} />
+                        Sign Out
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </header>
 
